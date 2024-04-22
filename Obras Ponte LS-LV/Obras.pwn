@@ -3,6 +3,7 @@
 #include <ZCMD>
 #include <streamer>
 #include <YSI_Data\y_iterate>
+#pragma dynamic 1000000
 
 new PonteLSLV[11];
 new Text3D:ActorText[4];
@@ -228,6 +229,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 }
 CMD:iniciarobras(playerid)
 {
+	if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Inválido.");
 	IniciarObras();
 	IniciouObras = true;
 	SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Obras iniciadas!!");
@@ -237,6 +239,7 @@ CMD:iniciarobras(playerid)
 
 CMD:terminarobras(playerid)
 {
+    if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Inválido.");
 	TerminarObras();
 	IniciouObras = false;
 	SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Obras Terminadas!!");
