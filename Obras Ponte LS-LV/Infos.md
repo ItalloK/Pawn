@@ -1,0 +1,1 @@
+Este FS trata-se de uma "tranca" na ponte que vai de LS para LV para servidores de RP'g que queiram deixar o local fechado para uma atualização futura ou coisa do genero.
