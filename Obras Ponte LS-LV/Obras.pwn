@@ -13,7 +13,7 @@ new bool:IniciouObras = false;
 
 public OnFilterScriptInit()
 {/*
-	Isso aq é pra caso ja deixe criado desde o inicio do FS
+	Isso aq Ã© pra caso ja deixe criado desde o inicio do FS
 
     PonteLSLV[0] =  CreateObject(4517, 1705.9000244141,392.60000610352,31.299999237061,0.0,0.0,161.99890136719);
     PonteLSLV[1] =  CreateObject(4517, 1696.6999511719,395.70001220703,31.299999237061,0.0, 0.0, 161.99890136719);
@@ -229,7 +229,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 }
 CMD:iniciarobras(playerid)
 {
-	if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Inválido.");
+	if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invï¿½lido.");
 	IniciarObras();
 	IniciouObras = true;
 	SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Obras iniciadas!!");
@@ -239,7 +239,7 @@ CMD:iniciarobras(playerid)
 
 CMD:terminarobras(playerid)
 {
-    if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Inválido.");
+    if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invï¿½lido.");
 	TerminarObras();
 	IniciouObras = false;
 	SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Obras Terminadas!!");
@@ -248,11 +248,11 @@ CMD:terminarobras(playerid)
 
 CMD:infoobras(playerid)
 {
-	if(IniciouObras == false) return SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Não há obras em Andamento!!");
-    if(!IsPlayerInRangeOfPoint(playerid, 2.0, 1809.5896,822.3916,10.6904) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1786.3190,822.0200,10.6953) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1701.5922,381.8859,30.0385) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1683.8262,388.5136,30.1807))return SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Você não está proximo a um operário.");
+	if(IniciouObras == false) return SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Nï¿½o hï¿½ obras em Andamento!!");
+    if(!IsPlayerInRangeOfPoint(playerid, 2.0, 1809.5896,822.3916,10.6904) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1786.3190,822.0200,10.6953) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1701.5922,381.8859,30.0385) && !IsPlayerInRangeOfPoint(playerid, 2.0, 1683.8262,388.5136,30.1807))return SendClientMessage(playerid, 0xFF0000AA, "| OBRAS | Vocï¿½ nï¿½o estï¿½ proximo a um operï¿½rio.");
 	new String[2000];
-    format(String, sizeof(String), "{FFFFFF}Olá {00FF00}%s{FF00FF}\n\n{FFFFFF}Este local está fechado para a construção de um pedágio.\n\nA previsão para a conclusão das obras é dia {FF0000}20/02/2024{FFFFFF}.\n\n\n{FF0000}AVISO{FFFFFF}: NÃO ENTRE NA AREA DE CONSTRUÇÃO, É PERIGOSO!\n\n\n\n{FFFFFF}Obrigado pela compreensão, tenha um bom jogo!", PlayerName(playerid));
-   	ShowPlayerDialog(playerid, 3500, DIALOG_STYLE_MSGBOX, "{FFFF00}Informações da Obra", String, "Ok", "");
+    format(String, sizeof(String), "{FFFFFF}Olï¿½ {00FF00}%s{FF00FF}\n\n{FFFFFF}Este local estï¿½ fechado para a construï¿½ï¿½o de um pedï¿½gio.\n\nA previsï¿½o para a conclusï¿½o das obras ï¿½ dia {FF0000}20/02/2024{FFFFFF}.\n\n\n{FF0000}AVISO{FFFFFF}: Nï¿½O ENTRE NA AREA DE CONSTRUï¿½ï¿½O, ï¿½ PERIGOSO!\n\n\n\n{FFFFFF}Obrigado pela compreensï¿½o, tenha um bom jogo!", PlayerName(playerid));
+   	ShowPlayerDialog(playerid, 3500, DIALOG_STYLE_MSGBOX, "{FFFF00}Informaï¿½ï¿½es da Obra", String, "Ok", "");
 	return 1;
 }
 	
@@ -267,13 +267,13 @@ stock IniciarObras()
     PonteLSLV[6] = 	GangZoneCreate(1668.1946,429.8232, 1817.9741,821.4232);
     GangZoneFlashForAll(PonteLSLV[6],0xFF0000AA);
 	PonteLSLV[7] = 	CreateActor(16,1809.5896,822.3916,10.6904,26.1083);
-    ActorText[0] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informações",-1,1809.5896,822.3916,10.6904,20.0,0);
+    ActorText[0] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informaï¿½ï¿½es",-1,1809.5896,822.3916,10.6904,20.0,0);
 	PonteLSLV[8] = 	CreateActor(27,1786.3190,822.0200,10.6953,17.4908);
-    ActorText[1] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informações",-1,1786.3190,822.0200,10.6953,20.0,0);
+    ActorText[1] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informaï¿½ï¿½es",-1,1786.3190,822.0200,10.6953,20.0,0);
 	PonteLSLV[9] = 	CreateActor(27,1701.5922,381.8859,30.0385,154.5317);
-    ActorText[2] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informações",-1,1701.5922,381.8859,30.0385,20.0,0);
+    ActorText[2] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informaï¿½ï¿½es",-1,1701.5922,381.8859,30.0385,20.0,0);
 	PonteLSLV[10] = CreateActor(16,1683.8262,388.5136,30.1807,161.6927);
-    ActorText[3] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informações",-1,1683.8262,388.5136,30.1807,20.0,0);
+    ActorText[3] = Create3DTextLabel("Local em Obras\nUse: '{ff0000}/InfoObras{FFFFFF}' para ver informaï¿½ï¿½es",-1,1683.8262,388.5136,30.1807,20.0,0);
 
 	
 }
