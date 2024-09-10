@@ -3,6 +3,8 @@
 #include 	<zcmd>
 #include 	<sscanf2>
 
+#define DIALOG_EVENTOCAR 8743
+
 new idVeiculoEvento;
 new temEvento = false;
 
@@ -64,15 +66,15 @@ public OnPlayerCommandText(playerid, cmdtext[])
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-    if(vehicleid == idVeiculoEvento){
-    	new Nome[256], string[256];
+	if(vehicleid == idVeiculoEvento){
+		new Nome[256], string[256];
 		GetPlayerName(playerid, Nome, sizeof(Nome));
-        format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ 50.000, Parabens.", Nome);
+		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ 50.000, Parabens.", Nome);
 		SendClientMessageToAll(-1, string);
 		GivePlayerMoney(playerid, 50000);
 		DestroyVehicle(vehicleid);
 		temEvento = false;
-    }
+	}
     return 1;
 }
 
@@ -143,4 +145,12 @@ CMD:vehevento(playerid, params[])
 	SendClientMessageToAll(-1, string);
 	temEvento = true;
 	return 1;
+}
+
+CMD:editevento(playerid){
+	ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento",
+	"Deagle\t$5000\t100\n\
+	{FF0000}Sawnoff\t{33AA33}$5000\t100\n\
+	Pistol\t$1000\t50",
+	"Button 1", "Button 2");
 }
