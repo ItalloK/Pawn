@@ -148,9 +148,7 @@ CMD:vehevento(playerid, params[])
 }
 
 CMD:editevento(playerid){
-	ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento",
-	"Deagle\t$5000\t100\n\
-	{FF0000}Sawnoff\t{33AA33}$5000\t100\n\
-	Pistol\t$1000\t50",
-	"Button 1", "Button 2");
+	new string[128];
+	format(string, sizeof(string), "ID do Veiculo\t{2ECC71}%d\n%s", idVeiculoEvento);
+	ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
 }
