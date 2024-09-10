@@ -6,7 +6,7 @@
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
-new temEvento = false;
+new bool:temEvento = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
 
 public OnFilterScriptInit()
@@ -133,6 +133,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessage(playerid, -1, "Pos 1");
 			}
 			case 2:{
+				if(temEvento == false) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Não tem um evento em andamento.");
 				SetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
 				SendClientMessage(playerid, -1, "| INFO | Você foi ate o veiculo do evento.");
 			}
@@ -144,8 +145,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 CMD:vehevento(playerid, params[])
 {
-	if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
-	if (temEvento) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
+	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
+	if (temEvento == true) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
 	new carrocadm,
 		Float:X, Float:Y, Float:Z, Float:Angle;
 	if(sscanf(params, "d", modeloVeiculoEvento)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Use: /vehevento [MODELO]");
@@ -166,6 +167,7 @@ CMD:vehevento(playerid, params[])
 }
 CMD:editevento(playerid)
 {
+	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[128];
     format(string, sizeof(string), 
 	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f", 
