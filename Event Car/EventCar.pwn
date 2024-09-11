@@ -4,12 +4,20 @@
 
 #define DIALOG_EVENTOCAR 5060
 #define DIALOG_VALOREVENTO 5061
+#define DIALOG_DICASEVENTO 5062
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
 new valorPremioEvento = -1;
 new bool:temEvento = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
+new Dicas[5][256] = {
+	"Dica 1",
+	"Dica 2",
+	"Dica 3",
+	"Dica 4",
+	"Dica 5"
+};
 
 public OnFilterScriptInit()
 {
@@ -152,6 +160,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(string, sizeof(string), "| RANDOM | O valor aleatorio para o premio é: {1EFF00}R$%s{FFFFFF}.", FormatMoney(valorPremioEvento));
 				SendClientMessage(playerid, -1, string);
 			}
+			case 5:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+			
+				new string[1000];
+				format(string, sizeof(string),"{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s", 
+				Dicas[0], Dicas[1], Dicas[2], Dicas[3], Dicas[4]);
+				ShowPlayerDialog(playerid, DIALOG_DICASEVENTO, DIALOG_STYLE_LIST, "Dicas Evento", string, "Editar", "Sair");			
+			}
         }
     }
 	if(dialogid == DIALOG_VALOREVENTO){
@@ -195,13 +211,16 @@ CMD:vehevento(playerid, params[])
 CMD:editevento(playerid)
 {
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
-    new string[512];
+    new string[1000];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\n", 
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\n", 
 	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento));
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
+
+
+
 
 
 
