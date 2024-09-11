@@ -3,6 +3,7 @@
 #include 	<sscanf2>
 
 #define DIALOG_EVENTOCAR 5060
+#define DIALOG_VALOREVENTO 5061
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
@@ -138,8 +139,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
 				SendClientMessage(playerid, -1, "| INFO | Você foi ate o veiculo do evento.");
 			}
+			case 3:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				ShowPlayerDialog(playerid, DIALOG_VALOREVENTO, DIALOG_STYLE_INPUT, "Valor do Premio", "Digite o valor para o prêmio:", "Confirmar", "Cancelar");
+			}
         }
     }
+	if(dialogid == DIALOG_VALOREVENTO){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		valorPremioEvento = strval(inputtext);
+		new string[256];
+		format(string, sizeof(string), "| INFO | Você alterou a premiação para R$ {00FF00}%d{FFFFFF}.", valorPremioEvento);
+		SendClientMessage(playerid, 0xFFFFFFAA, string);
+	}
     return 0;
 }
 
@@ -172,8 +184,8 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[128];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ);
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\tR$ {00FF00}%d", 
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, valorPremioEvento);
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
