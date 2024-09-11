@@ -5,6 +5,7 @@
 #define DIALOG_EVENTOCAR 5060
 #define DIALOG_VALOREVENTO 5061
 #define DIALOG_DICASEVENTO 5062
+#define DIALOG_MODELOVEICULO 5063
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
@@ -139,15 +140,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         switch(listitem)
         {
             case 0:{
-                SendClientMessage(playerid, -1, "Pos 0");
+				new string[256];
+				format(string, sizeof(string),"| INFO | O ID do veiculo do evento é: {FFE600}%d", idVeiculoEvento);
+                SendClientMessage(playerid, -1, string);
             }
 			case 1:{
-				SendClientMessage(playerid, -1, "Pos 1");
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				ShowPlayerDialog(playerid, DIALOG_MODELOVEICULO, DIALOG_STYLE_INPUT, "Modelo do Veiculo", "Digite o modelo do veiculo:", "Confirmar", "Cancelar");
 			}
 			case 2:{
-				if(temEvento == false) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Não tem um evento em andamento.");
-				SetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
-				SendClientMessage(playerid, -1, "| INFO | Você foi ate o veiculo do evento.");
+				if(temEvento == false){
+					GetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
+					new string[256];
+					format(string, sizeof(string), "| INFO | Você escolheu as posicoes {FF0000}%.2f %.2f %.2f{FFFFFF} para o veiculo.", posVehEventX, posVehEventY, posVehEventZ);
+					SendClientMessage(playerid, -1, string);
+				}else{
+					SetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
+					SendClientMessage(playerid, -1, "| INFO | Você foi ate o veiculo do evento.");
+				}	
 			}
 			case 3:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
@@ -180,6 +190,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		new string[256];
 		format(string, sizeof(string), "| INFO | Você alterou a premiação para R$ {00FF00}%s{FFFFFF}.", FormatMoney(valorPremioEvento));
 		SendClientMessage(playerid, 0xFFFFFFAA, string);
+	}
+	if(dialogid == DIALOG_MODELOVEICULO){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strval(inputtext) < 400 || strval(inputtext) > 611){
+			SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Veiculos apenas do id 400 a 611.");
+			return ShowPlayerDialog(playerid, DIALOG_MODELOVEICULO, DIALOG_STYLE_INPUT, "Modelo do Veiculo", "Digite o modelo do veiculo:", "Confirmar", "Cancelar");
+		}
+		modeloVeiculoEvento = strval(inputtext);
+		new string[256];
+		format(string, sizeof(string), "| INFO | Você selecionou o modelo {FFEE00}%d{FFFFFF} para o evento.");
+		SendClientMessage(playerid, -1, string);
 	}
     return 0;
 }
