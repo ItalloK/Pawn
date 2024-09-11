@@ -71,7 +71,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	if(vehicleid == idVeiculoEvento){
 		new Nome[256], string[256];
 		GetPlayerName(playerid, Nome, sizeof(Nome));
-		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ %d, Parabens.", Nome, valorPremioEvento);
+		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ %d, Parabens.", Nome, FormatMoney(valorPremioEvento));
 		SendClientMessageToAll(-1, string);
 		GivePlayerMoney(playerid, valorPremioEvento);
 		DestroyVehicle(vehicleid);
@@ -149,7 +149,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		valorPremioEvento = strval(inputtext);
 		new string[256];
-		format(string, sizeof(string), "| INFO | Você alterou a premiação para R$ {00FF00}%d{FFFFFF}.", valorPremioEvento);
+		format(string, sizeof(string), "| INFO | Você alterou a premiação para R$ {00FF00}%d{FFFFFF}.", FormatMoney(valorPremioEvento));
 		SendClientMessage(playerid, 0xFFFFFFAA, string);
 	}
     return 0;
@@ -174,7 +174,7 @@ CMD:vehevento(playerid, params[])
 	posVehEventX = X, posVehEventY = Y, posVehEventZ = Z;
 	new Nome[256], string[256];
 	GetPlayerName(playerid, Nome, sizeof(Nome));
-	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe R$ %d", Nome, valorPremioEvento);
+	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe R$ %d", Nome, FormatMoney(valorPremioEvento));
 	SendClientMessageToAll(-1, string);
 	temEvento = true;
 	return 1;
@@ -184,8 +184,36 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[128];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\tR$ {00FF00}%d", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, valorPremioEvento);
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%d", 
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento));
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
+}
+
+
+
+
+
+stock FormatMoney(valor)
+{
+    new formated[64];
+    format(formated, sizeof(formated), "%d", valor);
+    new result[64];
+    new len = strlen(formated);
+    new j = 0;
+    for (new i = len - 1; i >= 0; i--)
+    {
+        result[j++] = formated[i];
+        if ((len - i) % 3 == 0 && i != 0)
+            result[j++] = '.';
+    }
+    result[j] = '\0';
+    new temp;
+    for (new i = 0; i < j / 2; i++)
+    {
+        temp = result[i];
+        result[i] = result[j - i - 1];
+        result[j - i - 1] = temp;
+    }
+    return result;
 }
