@@ -6,6 +6,7 @@
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
+new valorPremioEvento = -1;
 new bool:temEvento = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
 
@@ -69,9 +70,9 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	if(vehicleid == idVeiculoEvento){
 		new Nome[256], string[256];
 		GetPlayerName(playerid, Nome, sizeof(Nome));
-		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ 50.000, Parabens.", Nome);
+		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de R$ %d, Parabens.", Nome, valorPremioEvento);
 		SendClientMessageToAll(-1, string);
-		GivePlayerMoney(playerid, 50000);
+		GivePlayerMoney(playerid, valorPremioEvento);
 		DestroyVehicle(vehicleid);
 		modeloVeiculoEvento = -1, idVeiculoEvento = -1;
 		temEvento = false;
@@ -147,6 +148,7 @@ CMD:vehevento(playerid, params[])
 {
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
 	if (temEvento == true) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
+	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
 	new carrocadm,
 		Float:X, Float:Y, Float:Z, Float:Angle;
 	if(sscanf(params, "d", modeloVeiculoEvento)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Use: /vehevento [MODELO]");
@@ -160,7 +162,7 @@ CMD:vehevento(playerid, params[])
 	posVehEventX = X, posVehEventY = Y, posVehEventZ = Z;
 	new Nome[256], string[256];
 	GetPlayerName(playerid, Nome, sizeof(Nome));
-	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe R$ 50.000", Nome);
+	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe R$ %d", Nome, valorPremioEvento);
 	SendClientMessageToAll(-1, string);
 	temEvento = true;
 	return 1;
