@@ -178,6 +178,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				Dicas[0], Dicas[1], Dicas[2], Dicas[3], Dicas[4]);
 				ShowPlayerDialog(playerid, DIALOG_DICASEVENTO, DIALOG_STYLE_LIST, "Dicas Evento", string, "Editar", "Sair");			
 			}
+			case 6:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				IniciarEvento(playerid);
+			}
         }
     }
 	if(dialogid == DIALOG_VALOREVENTO){
@@ -199,7 +203,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		modeloVeiculoEvento = strval(inputtext);
 		new string[256];
-		format(string, sizeof(string), "| INFO | Você selecionou o modelo {FFEE00}%d{FFFFFF} para o evento.");
+		format(string, sizeof(string), "| INFO | Você selecionou o modelo {FFEE00}%d{FFFFFF} para o evento.", modeloVeiculoEvento);
 		SendClientMessage(playerid, -1, string);
 	}
     return 0;
@@ -208,25 +212,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 CMD:vehevento(playerid, params[])
 {
-	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
-	if (temEvento == true) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
-	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
-	new carrocadm,
-		Float:X, Float:Y, Float:Z, Float:Angle;
-	if(sscanf(params, "d", modeloVeiculoEvento)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Use: /vehevento [MODELO]");
-	GetPlayerPos(playerid, X, Y, Z);
-	GetPlayerFacingAngle(playerid, Angle);
-	carrocadm = AddStaticVehicleEx(modeloVeiculoEvento, X, Y, Z, Angle, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
-	PutPlayerInVehicle(playerid,carrocadm,0);
-	LinkVehicleToInterior(carrocadm, GetPlayerInterior(playerid));
-	SetVehicleVirtualWorld(carrocadm, GetPlayerVirtualWorld(playerid));
-	idVeiculoEvento = GetPlayerVehicleID(playerid);
-	posVehEventX = X, posVehEventY = Y, posVehEventZ = Z;
-	new Nome[256], string[256];
-	GetPlayerName(playerid, Nome, sizeof(Nome));
-	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
-	SendClientMessageToAll(-1, string);
-	temEvento = true;
+
 	return 1;
 }
 CMD:editevento(playerid)
@@ -234,7 +220,7 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[1000];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\n", 
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nIniciar Evento\t\n", 
 	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento));
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
@@ -242,7 +228,18 @@ CMD:editevento(playerid)
 
 
 
-
+stock IniciarEvento(playerid){
+	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
+	if(posVehEventX == -1 || posVehEventY == -1 || posVehEventZ == -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve escolher um local para o veiculo.");
+	AddStaticVehicleEx(modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, 90, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
+	idVeiculoEvento = GetPlayerVehicleID(playerid);
+	new Nome[256], string[256];
+	GetPlayerName(playerid, Nome, sizeof(Nome));
+	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
+	SendClientMessageToAll(-1, string);
+	temEvento = true;
+	return 1;
+}
 
 
 
