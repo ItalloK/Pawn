@@ -69,9 +69,9 @@ public OnPlayerCommandText(playerid, cmdtext[])
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(vehicleid == idVeiculoEvento){
-		new Nome[256], string[256];
+		new Nome[256], string[1000];
 		GetPlayerName(playerid, Nome, sizeof(Nome));
-		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do EVENTO e ganhou a recompensa de {00FF00}R$ %s{FFFFFF}.", Nome, FormatMoney(valorPremioEvento));
+		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do {FFEE00}evento{FFFFFF} e ganhou a recompensa de {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
 		SendClientMessageToAll(-1, string);
 		GivePlayerMoney(playerid, valorPremioEvento);
 		DestroyVehicle(vehicleid);
@@ -145,6 +145,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				ShowPlayerDialog(playerid, DIALOG_VALOREVENTO, DIALOG_STYLE_INPUT, "Valor do Premio", "Digite o valor para o prêmio:", "Confirmar", "Cancelar");
 			}
+			case 4:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				valorPremioEvento = random(200000);
+				new string[256];
+				format(string, sizeof(string), "| RANDOM | O valor aleatorio para o premio é: {1EFF00}R$%s{FFFFFF}.", FormatMoney(valorPremioEvento));
+				SendClientMessage(playerid, -1, string);
+			}
         }
     }
 	if(dialogid == DIALOG_VALOREVENTO){
@@ -190,7 +197,7 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[512];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s", 
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\n", 
 	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento));
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
