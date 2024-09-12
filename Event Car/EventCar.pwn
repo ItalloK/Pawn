@@ -214,7 +214,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(strcmp(Dicas[0], "Dica 1", true) == 0 || strcmp(Dicas[1], "Dica 2", true) == 0 || strcmp(Dicas[2], "Dica 3", true) == 0 || strcmp(Dicas[3], "Dica 4", true) == 0 || strcmp(Dicas[4], "Dica 5", true) == 0){
 					return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar as dicas primeiro.");
 				}
-				if(tempoEntreDicas >= 1 || tempoEntreDicas <= 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
+				if(tempoEntreDicas < 1 || tempoEntreDicas > 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
 				if(valorPorDica == -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica deve ser superior a -1.");
 				if(temDicas == true){
 					temDicas = false;
