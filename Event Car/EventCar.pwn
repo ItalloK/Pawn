@@ -252,7 +252,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		switch(listitem){
 			case 0:{
-
+				ShowPlayerDialog(playerid, DIALOG_DICA1, DIALOG_STYLE_INPUT, "Dicas", "Digite a primeira dica:", "Confirmar", "Cancelar");
+			}
+			case 1:{
+				ShowPlayerDialog(playerid, DIALOG_DICA2, DIALOG_STYLE_INPUT, "Dicas", "Digite a segunda dica:", "Confirmar", "Cancelar");
+			}
+			case 2:{
+				ShowPlayerDialog(playerid, DIALOG_DICA3, DIALOG_STYLE_INPUT, "Dicas", "Digite a terceira dica:", "Confirmar", "Cancelar");
+			}
+			case 3:{
+				ShowPlayerDialog(playerid, DIALOG_DICA4, DIALOG_STYLE_INPUT, "Dicas", "Digite a quarta dica:", "Confirmar", "Cancelar");
+			}
+			case 4:{
+				ShowPlayerDialog(playerid, DIALOG_DICA5, DIALOG_STYLE_INPUT, "Dicas", "Digite a quinta dica:", "Confirmar", "Cancelar");
 			}
 		}
 	}
