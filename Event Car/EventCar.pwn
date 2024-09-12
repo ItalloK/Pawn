@@ -268,6 +268,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 		}
 	}
+	if(dialogid == DIALOG_DICA1){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
+		format(Dicas[0], 128, "%s", inputtext);
+	}
+	if(dialogid == DIALOG_DICA2){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
+		format(Dicas[1], 128, "%s", inputtext);
+	}
+	if(dialogid == DIALOG_DICA3){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
+		format(Dicas[2], 128, "%s", inputtext);
+	}
+	if(dialogid == DIALOG_DICA4){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
+		format(Dicas[3], 128, "%s", inputtext);
+	}
+	if(dialogid == DIALOG_DICA5){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
+		format(Dicas[4], 128, "%s", inputtext);
+	}
     return 0;
 }
 
