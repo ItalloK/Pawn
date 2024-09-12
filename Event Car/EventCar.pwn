@@ -13,6 +13,9 @@ new valorPremioEvento = -1;
 new bool:temEvento = false;
 new bool:adicionouLocalVeiculo = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
+//new contDicas = 0;
+//new bool:temDicas = false;
+
 new Dicas[5][256] = {
 	"Dica 1",
 	"Dica 2",
@@ -91,6 +94,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			posVehEventX = -1, posVehEventY = -1, posVehEventZ = -1;
 			valorPremioEvento = -1;
 			adicionouLocalVeiculo = false;
+			//contDicas = 0;
 		}
 	}
     return 1;
@@ -195,6 +199,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			case 6:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				IniciarEvento(playerid);
+				/*if(temDicas == true){
+					EnviarDicas();
+				}*/
 			}
         }
     }
@@ -223,31 +230,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 0;
 }
 
-CMD:vehevento(playerid, params[])
-{
-	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
-	if (temEvento == true) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
-	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
-	new carrocadm,
-		Float:X, Float:Y, Float:Z, Float:Angle;
-	if(sscanf(params, "d", modeloVeiculoEvento)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Use: /vehevento [MODELO]");
-	GetPlayerPos(playerid, X, Y, Z);
-	GetPlayerFacingAngle(playerid, Angle);
-	carrocadm = AddStaticVehicleEx(modeloVeiculoEvento, X, Y, Z, Angle, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
-	PutPlayerInVehicle(playerid,carrocadm,0);
-	LinkVehicleToInterior(carrocadm, GetPlayerInterior(playerid));
-	SetVehicleVirtualWorld(carrocadm, GetPlayerVirtualWorld(playerid));
-	idVeiculoEvento = GetPlayerVehicleID(playerid);
-	posVehEventX = X, posVehEventY = Y, posVehEventZ = Z;
-	new Nome[256], string[256];
-	GetPlayerName(playerid, Nome, sizeof(Nome));
-	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
-	SendClientMessageToAll(-1, string);
-	temEvento = true;
-	return 1;
-}
-
-
 CMD:editevento(playerid)
 {
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
@@ -260,6 +242,9 @@ CMD:editevento(playerid)
 }
 
 
+/*stock EnviarDicas(){
+
+}*/
 
 stock IniciarEvento(playerid){
 	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
@@ -271,9 +256,6 @@ stock IniciarEvento(playerid){
 	temEvento = true;
 	return 1;
 }
-
-
-
 
 stock FormatMoney(valor)
 {
