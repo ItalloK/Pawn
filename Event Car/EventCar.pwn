@@ -95,7 +95,8 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			posVehEventX = -1, posVehEventY = -1, posVehEventZ = -1;
 			valorPremioEvento = -1;
 			adicionouLocalVeiculo = false;
-			//contDicas = 0;
+			contDicas = 0;
+			temDicas = false;
 		}
 	}
     return 1;
@@ -198,8 +199,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerDialog(playerid, DIALOG_DICASEVENTO, DIALOG_STYLE_LIST, "Dicas Evento", string, "Editar", "Sair");			
 			}
 			case 6:{
-				temDicas = true;
-				SendClientMessage(playerid, -1, "| INFO | Você ativou as Dicas");
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				if(temDicas == true){
+					temDicas = false;
+					SendClientMessage(playerid, -1, "| INFO | Você desativou as Dicas");
+				}
+				if(temDicas == false){
+					temDicas = true;
+					SendClientMessage(playerid, -1, "| INFO | Você ativou as Dicas");
+				}
 			}
 			case 7:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
@@ -241,7 +249,7 @@ CMD:editevento(playerid)
     new string[1000];
     format(string, sizeof(string), 
 	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nIniciar Evento\t\n", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas);
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas ? "{00FF00}Ativado" : "{FF0000}Desativado");
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
