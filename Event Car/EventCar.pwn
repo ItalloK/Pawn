@@ -325,7 +325,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	if(dialogid == DIALOG_TEMPODICAS){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
-		if(strval(inputtext) >= 1 || strval(inputtext) <= 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
+		if(strval(inputtext) < 1 || strval(inputtext) > 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
 		tempoEntreDicas = strval(inputtext);
 		new string[512];
 		format(string, sizeof(string), "| INFO | O tempo entre as dicas será de {EEFF00}%d {FFFFFF}minutos.", strval(inputtext));
