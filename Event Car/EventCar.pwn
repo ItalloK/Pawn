@@ -21,6 +21,7 @@ new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
 new contDicas = 0;
 new bool:temDicas = false;
 new timerDicas;
+new tempoEntreDicas = 0;
 
 new Dicas[5][256] = {
 	"Dica 1",
@@ -198,9 +199,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 5:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
-			
 				new string[1000];
-				format(string, sizeof(string),"{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s\n{00A2FF}%s", 
+				format(string, sizeof(string),"{FFFFFF}%s\n{FFFFFF}%s\n{FFFFFF}%s\n{FFFFFF}%s\n{FFFFFF}%s", 
 				Dicas[0], Dicas[1], Dicas[2], Dicas[3], Dicas[4]);
 				ShowPlayerDialog(playerid, DIALOG_DICASEVENTO, DIALOG_STYLE_LIST, "Dicas Evento", string, "Editar", "Sair");			
 			}
@@ -272,26 +272,41 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
 		format(Dicas[0], 128, "%s", inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}1 {FFFFFF}é: {FFFB00}%s", inputtext);
+		SendClientMessage(playerid, -1, string);
 	}
 	if(dialogid == DIALOG_DICA2){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
 		format(Dicas[1], 128, "%s", inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}2 {FFFFFF}é: {FFFB00}%s", inputtext);
+		SendClientMessage(playerid, -1, string);
 	}
 	if(dialogid == DIALOG_DICA3){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
 		format(Dicas[2], 128, "%s", inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}3 {FFFFFF}é: {FFFB00}%s", inputtext);
+		SendClientMessage(playerid, -1, string);
 	}
 	if(dialogid == DIALOG_DICA4){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
 		format(Dicas[3], 128, "%s", inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}4 {FFFFFF}é: {FFFB00}%s", inputtext);
+		SendClientMessage(playerid, -1, string);
 	}
 	if(dialogid == DIALOG_DICA5){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strlen(inputtext) < 5 || strlen(inputtext) > 100) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você digitou uma dica pequena d+ ou grande d+.");
 		format(Dicas[4], 128, "%s", inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}5 {FFFFFF}é: {FFFB00}%s", inputtext);
+		SendClientMessage(playerid, -1, string);
 	}
     return 0;
 }
@@ -301,8 +316,8 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[1000];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nIniciar Evento\t\n", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas ? "{00FF00}Ativado" : "{FF0000}Desativado");
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nTempo para as dicas\t%d\nIniciar Evento\t\n", 
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas ? "{00FF00}Ativado" : "{FF0000}Desativado", tempoEntreDicas);
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
