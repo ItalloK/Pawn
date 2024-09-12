@@ -12,6 +12,7 @@
 #define DIALOG_DICA4 			5067
 #define DIALOG_DICA5 			5068
 #define DIALOG_TEMPODICAS		5069
+#define DIALOG_VALORPORDICA		5070
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
@@ -232,6 +233,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 8:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				ShowPlayerDialog(playerid, DIALOG_VALORPORDICA, DIALOG_STYLE_INPUT, "Valor da Dica", "Digite um valor a ser diminuido a cada dica dada:", "Confirmar", "Cancelar");
+			}
+			case 9:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				IniciarEvento(playerid);
 			}
         }
@@ -325,6 +330,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		new string[512];
 		format(string, sizeof(string), "| INFO | O tempo entre as dicas será de {EEFF00}%d {FFFFFF}minutos.", strval(inputtext));
 		SendClientMessage(playerid, -1, string);
+	}
+	if(dialogid == DIALOG_VALORPORDICA){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strval(inputtext)*5 > valorPremioEvento) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica é alto d+.");
+		if(strval(inputtext) < 0) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica não pode ser negativo.");
 	}
     return 0;
 }
