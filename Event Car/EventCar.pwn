@@ -250,8 +250,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	if(dialogid == DIALOG_DICASEVENTO){
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
-		case 0:{
+		switch(listitem){
+			case 0:{
 
+			}
 		}
 	}
     return 0;
