@@ -203,10 +203,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(temDicas == true){
 					temDicas = false;
 					SendClientMessage(playerid, -1, "| INFO | Você desativou as Dicas");
+					return 1;
 				}
 				if(temDicas == false){
 					temDicas = true;
 					SendClientMessage(playerid, -1, "| INFO | Você ativou as Dicas");
+					return 1;
 				}
 			}
 			case 7:{
