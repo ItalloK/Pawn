@@ -2,10 +2,15 @@
 #include 	<zcmd>
 #include 	<sscanf2>
 
-#define DIALOG_EVENTOCAR 5060
-#define DIALOG_VALOREVENTO 5061
-#define DIALOG_DICASEVENTO 5062
-#define DIALOG_MODELOVEICULO 5063
+#define DIALOG_EVENTOCAR 		5060
+#define DIALOG_VALOREVENTO 		5061
+#define DIALOG_DICASEVENTO 		5062
+#define DIALOG_MODELOVEICULO 	5063
+#define DIALOG_DICA1 			5064
+#define DIALOG_DICA2 			5065
+#define DIALOG_DICA3 			5066
+#define DIALOG_DICA4 			5067
+#define DIALOG_DICA5 			5068
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
@@ -97,6 +102,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			adicionouLocalVeiculo = false;
 			contDicas = 0;
 			temDicas = false;
+			Dicas[0] = "Dica 1", Dicas[1] = "Dica 2", Dicas[2] = "Dica 3", Dicas[3] = "Dica 4", Dicas[4] = "Dica 5";
 		}
 	}
     return 1;
@@ -200,6 +206,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 6:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				if(strcmp(Dicas[0], "Dica 1", true) == 0 || strcmp(Dicas[1], "Dica 2", true) == 0 || strcmp(Dicas[2], "Dica 3", true) == 0 || strcmp(Dicas[3], "Dica 4", true) == 0 || strcmp(Dicas[4], "Dica 5", true) == 0){
+					return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar as dicas primeiro.");
+				}
 				if(temDicas == true){
 					temDicas = false;
 					SendClientMessage(playerid, -1, "| INFO | Você desativou as Dicas");
@@ -214,9 +223,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			case 7:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				IniciarEvento(playerid);
-				/*if(temDicas == true){
-					EnviarDicas();
-				}*/
 			}
         }
     }
@@ -241,6 +247,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		new string[256];
 		format(string, sizeof(string), "| INFO | Você selecionou o modelo {FFEE00}%d{FFFFFF} para o evento.", modeloVeiculoEvento);
 		SendClientMessage(playerid, -1, string);
+	}
+	if(dialogid == DIALOG_DICASEVENTO){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		case 0:{
+
+		}
 	}
     return 0;
 }
