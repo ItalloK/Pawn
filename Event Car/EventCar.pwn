@@ -11,6 +11,7 @@ new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
 new valorPremioEvento = -1;
 new bool:temEvento = false;
+new bool:adicionouLocalVeiculo = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
 new Dicas[5][256] = {
 	"Dica 1",
@@ -88,6 +89,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		temEvento = false;
 		posVehEventX = -1, posVehEventY = -1, posVehEventZ = -1;
 		valorPremioEvento = -1;
+		adicionouLocalVeiculo = false;
 	}
     return 1;
 }
@@ -150,10 +152,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 2:{
 				if(temEvento == false){
+					if(modeloVeiculoEvento < 400) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Defina o modelo do veiculo antes.");
+					new carrocadm,
+						Float:Angle;
 					GetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
+					GetPlayerFacingAngle(playerid, Angle);
+					carrocadm = AddStaticVehicleEx(modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, Angle, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
+					PutPlayerInVehicle(playerid,carrocadm,0);
+					LinkVehicleToInterior(carrocadm, GetPlayerInterior(playerid));
+					SetVehicleVirtualWorld(carrocadm, GetPlayerVirtualWorld(playerid));
+					idVeiculoEvento = GetPlayerVehicleID(playerid);
 					new string[256];
 					format(string, sizeof(string), "| INFO | Você escolheu as posicoes {FF0000}%.2f %.2f %.2f{FFFFFF} para o veiculo.", posVehEventX, posVehEventY, posVehEventZ);
 					SendClientMessage(playerid, -1, string);
+					adicionouLocalVeiculo = true;
 				}else{
 					SetPlayerPos(playerid, posVehEventX, posVehEventY, posVehEventZ);
 					SendClientMessage(playerid, -1, "| INFO | Você foi ate o veiculo do evento.");
@@ -209,12 +221,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 0;
 }
 
-
 CMD:vehevento(playerid, params[])
 {
-
+	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
+	if (temEvento == true) return SendClientMessage(playerid, 0xFF0000FF, "| ERRO | Ja tem um evento criado.");
+	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
+	new carrocadm,
+		Float:X, Float:Y, Float:Z, Float:Angle;
+	if(sscanf(params, "d", modeloVeiculoEvento)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Use: /vehevento [MODELO]");
+	GetPlayerPos(playerid, X, Y, Z);
+	GetPlayerFacingAngle(playerid, Angle);
+	carrocadm = AddStaticVehicleEx(modeloVeiculoEvento, X, Y, Z, Angle, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
+	PutPlayerInVehicle(playerid,carrocadm,0);
+	LinkVehicleToInterior(carrocadm, GetPlayerInterior(playerid));
+	SetVehicleVirtualWorld(carrocadm, GetPlayerVirtualWorld(playerid));
+	idVeiculoEvento = GetPlayerVehicleID(playerid);
+	posVehEventX = X, posVehEventY = Y, posVehEventZ = Z;
+	new Nome[256], string[256];
+	GetPlayerName(playerid, Nome, sizeof(Nome));
+	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
+	SendClientMessageToAll(-1, string);
+	temEvento = true;
 	return 1;
 }
+
+
 CMD:editevento(playerid)
 {
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
@@ -230,9 +261,7 @@ CMD:editevento(playerid)
 
 stock IniciarEvento(playerid){
 	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
-	if(posVehEventX == -1 || posVehEventY == -1 || posVehEventZ == -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve escolher um local para o veiculo.");
-	AddStaticVehicleEx(modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, 90, 0, 0, -1), SetVehicleNumberPlate(-1, "{B83686}HS-ADMIN");
-	idVeiculoEvento = GetPlayerVehicleID(playerid);
+	if(adicionouLocalVeiculo == false) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve escolher um local para o veiculo.");
 	new Nome[256], string[256];
 	GetPlayerName(playerid, Nome, sizeof(Nome));
 	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
