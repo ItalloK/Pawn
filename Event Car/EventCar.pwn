@@ -79,7 +79,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(vehicleid == idVeiculoEvento){
-		if(temEvento){
+		if(temEvento == true){
 			new Nome[256], string[1000];
 			GetPlayerName(playerid, Nome, sizeof(Nome));
 			format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do {FFEE00}evento{FFFFFF} e ganhou a recompensa de {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
@@ -92,7 +92,6 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			valorPremioEvento = -1;
 			adicionouLocalVeiculo = false;
 		}
-		
 	}
     return 1;
 }
