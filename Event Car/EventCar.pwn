@@ -268,10 +268,10 @@ public IniciarEvento(playerid){
 
 forward DarDicas();
 public DarDicas(){
-	new string[256];
-	format(string, sizeof(string), "%d", contDicas);
-	SendClientMessageToAll(-1, string);
 	contDicas++;
+	new string[512];
+	format(string, sizeof(string), "| DICA %d | %s", contDicas, Dicas[contDicas]);
+	SendClientMessageToAll(-1, string);
 	if(contDicas >= 5){
 		KillTimer(timerDicas);
 	}
