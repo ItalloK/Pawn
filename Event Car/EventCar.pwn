@@ -11,6 +11,7 @@
 #define DIALOG_DICA3 			5066
 #define DIALOG_DICA4 			5067
 #define DIALOG_DICA5 			5068
+#define DIALOG_TEMPODICAS		5069
 
 new idVeiculoEvento = -1;
 new modeloVeiculoEvento = -1;
@@ -22,6 +23,7 @@ new contDicas = 0;
 new bool:temDicas = false;
 new timerDicas;
 new tempoEntreDicas = 0;
+new valorPorDica = -1;
 
 new Dicas[5][256] = {
 	"Dica 1",
@@ -104,6 +106,8 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			contDicas = 0;
 			temDicas = false;
 			Dicas[0] = "Dica 1", Dicas[1] = "Dica 2", Dicas[2] = "Dica 3", Dicas[3] = "Dica 4", Dicas[4] = "Dica 5";
+			tempoEntreDicas = 0;
+			valorPorDica = -1;
 		}
 	}
     return 1;
@@ -209,7 +213,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(strcmp(Dicas[0], "Dica 1", true) == 0 || strcmp(Dicas[1], "Dica 2", true) == 0 || strcmp(Dicas[2], "Dica 3", true) == 0 || strcmp(Dicas[3], "Dica 4", true) == 0 || strcmp(Dicas[4], "Dica 5", true) == 0){
 					return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar as dicas primeiro.");
 				}
-				if(tempoEntreDicas >= 1 || tempoEntreDicas <= 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 mintuos.");
+				if(tempoEntreDicas >= 1 || tempoEntreDicas <= 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
+				if(valorPorDica == -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica deve ser superior a -1.");
 				if(temDicas == true){
 					temDicas = false;
 					SendClientMessage(playerid, -1, "| INFO | Você desativou as Dicas");
@@ -222,6 +227,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 			case 7:{
+				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
+				ShowPlayerDialog(playerid, DIALOG_TEMPODICAS, DIALOG_STYLE_INPUT, "Tempo para Dicas", "Digite o tempo em minutos:", "Confirmar", "Cancelar");
+			}
+			case 8:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				IniciarEvento(playerid);
 			}
@@ -309,16 +318,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		format(string, sizeof(string), "| INFO | A nova dica {FFFB00}5 {FFFFFF}é: {FFFB00}%s", inputtext);
 		SendClientMessage(playerid, -1, string);
 	}
+	if(dialogid == DIALOG_TEMPODICAS){
+		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
+		if(strval(inputtext) >= 1 || strval(inputtext) <= 5) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O tempo entre as dicas deve ser entre 1 minuto e 5 minutos.");
+		tempoEntreDicas = strval(inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | O tempo entre as dicas será de {EEFF00}%d {FFFFFF}minutos.", strval(inputtext));
+		SendClientMessage(playerid, -1, string);
+	}
     return 0;
 }
 
 CMD:editevento(playerid)
 {
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
-    new string[1000];
+    new string[1500];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nTempo para as dicas\t%d\nIniciar Evento\t\n", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas ? "{00FF00}Ativado" : "{FF0000}Desativado", tempoEntreDicas);
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nTempo para as dicas\t%d\nValor por dica:\t{00FF00}%s\nIniciar Evento\t\n", 
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas ? "{00FF00}Ativado" : "{FF0000}Desativado", tempoEntreDicas, FormatMoney(valorPorDica));
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
@@ -337,7 +354,7 @@ public IniciarEvento(playerid){
 	SendClientMessageToAll(-1, string);
 	temEvento = true;
 	if(temDicas == true){
-		timerDicas = SetTimer("DarDicas", 1000, true);
+		timerDicas = SetTimer("DarDicas", (tempoEntreDicas*60000), true);
 	}
 	return 1;
 }
