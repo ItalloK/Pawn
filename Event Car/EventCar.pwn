@@ -79,17 +79,20 @@ public OnPlayerCommandText(playerid, cmdtext[])
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(vehicleid == idVeiculoEvento){
-		new Nome[256], string[1000];
-		GetPlayerName(playerid, Nome, sizeof(Nome));
-		format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do {FFEE00}evento{FFFFFF} e ganhou a recompensa de {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
-		SendClientMessageToAll(-1, string);
-		GivePlayerMoney(playerid, valorPremioEvento);
-		DestroyVehicle(vehicleid);
-		modeloVeiculoEvento = -1, idVeiculoEvento = -1;
-		temEvento = false;
-		posVehEventX = -1, posVehEventY = -1, posVehEventZ = -1;
-		valorPremioEvento = -1;
-		adicionouLocalVeiculo = false;
+		if(temEvento){
+			new Nome[256], string[1000];
+			GetPlayerName(playerid, Nome, sizeof(Nome));
+			format(string, sizeof(string), "| EVENTO | O(A) jogador(a) {FF0000}%s{FFFFFF} entrou no veiculo do {FFEE00}evento{FFFFFF} e ganhou a recompensa de {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
+			SendClientMessageToAll(-1, string);
+			GivePlayerMoney(playerid, valorPremioEvento);
+			DestroyVehicle(vehicleid);
+			modeloVeiculoEvento = -1, idVeiculoEvento = -1;
+			temEvento = false;
+			posVehEventX = -1, posVehEventY = -1, posVehEventZ = -1;
+			valorPremioEvento = -1;
+			adicionouLocalVeiculo = false;
+		}
+		
 	}
     return 1;
 }
