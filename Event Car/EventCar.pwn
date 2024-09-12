@@ -1,3 +1,9 @@
+/*
+	FS feito por: Italo
+	Repositorio: https://github.com/ItalloK/Pawn
+
+	NÃO TIRE OS CREDITOS.
+*/
 #include 	<a_samp>
 #include 	<zcmd>
 #include 	<sscanf2>
@@ -36,7 +42,8 @@ new Dicas[5][256] = {
 
 public OnFilterScriptInit()
 {
-   return 1;
+	print("FS EVENTCAR CRIADO POR ITALO, @_ItalloK");
+	return 1;
 }
 
 public OnFilterScriptExit()
