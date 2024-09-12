@@ -335,6 +335,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você escolheu cancelar.");
 		if(strval(inputtext)*5 > valorPremioEvento) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica é alto d+.");
 		if(strval(inputtext) < 0) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | O valor por dica não pode ser negativo.");
+		valorPorDica = strval(inputtext);
+		new string[512];
+		format(string, sizeof(string), "| INFO | Você definiu o valor por dica de {00FF73}R$%s{FFFFFF}.", FormatMoney(valorPorDica));
+		SendClientMessage(playerid, -1, string);
 	}
     return 0;
 }
@@ -376,8 +380,9 @@ public DarDicas(){
 		KillTimer(timerDicas);
 		return 1;
 	}
-	new string[512];
-	format(string, sizeof(string), "| DICA %d | %s", contDicas+1, Dicas[contDicas]);
+	valorPremioEvento -= valorPorDica;
+	new string[1500];
+	format(string, sizeof(string), "| DICA [%d/5] | {EEFF00}%s{FFFFFF} valor atual do premio {00FF15}R$%s{FFFFFF}.", contDicas+1, Dicas[contDicas], FormatMoney(valorPremioEvento));
 	SendClientMessageToAll(-1, string);
 	contDicas++;
 	return 1;
