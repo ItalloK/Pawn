@@ -13,8 +13,9 @@ new valorPremioEvento = -1;
 new bool:temEvento = false;
 new bool:adicionouLocalVeiculo = false;
 new Float:posVehEventX, Float:posVehEventY, Float:posVehEventZ;
-//new contDicas = 0;
-//new bool:temDicas = false;
+new contDicas = 0;
+new bool:temDicas = false;
+new timerDicas;
 
 new Dicas[5][256] = {
 	"Dica 1",
@@ -197,6 +198,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerDialog(playerid, DIALOG_DICASEVENTO, DIALOG_STYLE_LIST, "Dicas Evento", string, "Editar", "Sair");			
 			}
 			case 6:{
+				temDicas = true;
+				SendClientMessage(playerid, -1, "| INFO | Você ativou as Dicas");
+			}
+			case 7:{
 				if(temEvento == true) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Já tem um evento em andamento.");
 				IniciarEvento(playerid);
 				/*if(temDicas == true){
@@ -235,8 +240,8 @@ CMD:editevento(playerid)
 	//if(!IsPlayerAdmin(playerid)) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Comando Invalido.");
     new string[1000];
     format(string, sizeof(string), 
-	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nIniciar Evento\t\n", 
-	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento));
+	"ID do Veiculo\t{00A2FF}%d\nModelo do Veiculo:\t{00A2FF}%d\nLocalizacao do veiculo:\t%.2f %.2f %.2f\nValor do Evento:\t {00FF00}R$%s\nValor Aleatorio\t\nDicas\t\nStatus Dicas\t%s\nIniciar Evento\t\n", 
+	idVeiculoEvento, modeloVeiculoEvento, posVehEventX, posVehEventY, posVehEventZ, FormatMoney(valorPremioEvento), temDicas);
     ShowPlayerDialog(playerid, DIALOG_EVENTOCAR, DIALOG_STYLE_TABLIST, "Editar Evento", string, "Escolher", "Sair");
     return 1;
 }
@@ -245,8 +250,8 @@ CMD:editevento(playerid)
 /*stock EnviarDicas(){
 
 }*/
-
-stock IniciarEvento(playerid){
+forward IniciarEvento(playerid);
+public IniciarEvento(playerid){
 	if(valorPremioEvento <= -1) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve alterar o valor do premio antes.");
 	if(adicionouLocalVeiculo == false) return SendClientMessage(playerid, 0xFF0000AA, "| ERRO | Você deve escolher um local para o veiculo.");
 	new Nome[256], string[256];
@@ -254,8 +259,24 @@ stock IniciarEvento(playerid){
 	format(string, sizeof(string), "| EVENTO | O Admin {FF0000}%s{FFFFFF} criou um veiculo pelo mapa, ache e ganhe {00FF00}R$ %s", Nome, FormatMoney(valorPremioEvento));
 	SendClientMessageToAll(-1, string);
 	temEvento = true;
+	if(temDicas == true){
+		timerDicas = SetTimer("DarDicas", 1000, true);
+	}
 	return 1;
 }
+
+
+forward DarDicas();
+public DarDicas(){
+	new string[256];
+	format(string, sizeof(string), "%d", contDicas);
+	SendClientMessageToAll(-1, string);
+	contDicas++;
+	if(contDicas >= 5){
+		KillTimer(timerDicas);
+	}
+}
+
 
 stock FormatMoney(valor)
 {
