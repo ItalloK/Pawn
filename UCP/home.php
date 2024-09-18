@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Projetos - Empresa</title>
+    <title>HeadShot Server</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
@@ -40,7 +40,7 @@
                           include('casas/casasvendidas.php');
                           break;
                         case "minhaconta":
-                          include('contas/minhaconta.php');
+                          include('contas/perfil.php');
                           break;
                         case "index":
                           include("index.php");
