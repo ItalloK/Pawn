@@ -27,65 +27,11 @@
                   <?php
                     if (isset($_REQUEST["page"]) && !empty($_REQUEST["page"])) {
                       switch($_REQUEST["page"]) {
-                        case "projeto-listar":
-                          include('projeto/projeto-listar.php');
+                        case "rankinglevel":
+                          include('ranking/rankinglevel.php');
                           break;
-                        case "projeto-create":
-                          include('projeto/projeto-create.php');
-                          break;
-                        case "projeto-editar":
-                          include('projeto/projeto-editar.php');
-                          break;
-                        case "funcionario-listar":
-                          include('funcionario/funcionario-listar.php');
-                          break;
-                        case "funcionario-create":
-                          include('funcionario/funcionario-create.php');
-                          break;
-                        case "funcionario-editar":
-                          include('funcionario/funcionario-edit.php');
-                          break;
-                        case "dependente-listar":
-                          include('dependente/dependente-listar.php');
-                          break;
-                        case "dependente-create":
-                          include('dependente/dependente-create.php');
-                          break;
-                        case "dependente-editar":
-                          include('dependente/dependente-editar.php');
-                          break;
-                        case "departamento-listar":
-                          include('departamento/departamento-listar.php');
-                          break;
-                        case "local_departamentos_listar":
-                          include('local_departamentos/local_departamentos_listar.php');
-                          break;
-                        case "local_departamentos_create":
-                          include('local_departamentos/local_departamentos_create.php');
-                          break;
-                        case "local_departamentos_editar":
-                          include('local_departamentos/local_departamentos_editar.php');
-                          break;
-                        case "departamento-listartodos":
-                          include('departamento/departamento-listartodos.php');
-                          break;
-                        case "departamento-create":
-                          include('departamento/departamento-create.php');
-                          break;
-                        case "departamento-editar":
-                          include('departamento/departamento-editar.php');
-                          break;
-                        case "trabalhaem-listar":
-                          include("trabalhaem/trabalhaem-listar.php");
-                          break;
-                        case "trabalhaem-create":
-                          include("trabalhaem/trabalhaem-create.php");
-                          break;
-                        case "trabalhaem-editar":
-                          include("trabalhaem/trabalhaem-editar.php");
-                          break;
-                        case "trabalhaem-listartodos":
-                          include("trabalhaem/trabalhaem-listartodos.php");
+                        case "rankinggrana":
+                          include('ranking/rankinggrana.php');
                           break;
                         case "index":
                           include("index.php");
@@ -158,7 +104,7 @@
           <div class="row">
             <div class="col-md-12">
               <p>
-                Desenvolvido pelo Prof. Edilson Lima &copy; 2024 || Editado por Italo Gabriel e Jackson Garcês - 2024
+                Desenvolvido por Italo Gabriel
               </p>
             </div>
           </div>
