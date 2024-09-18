@@ -33,6 +33,15 @@
                         case "rankinggrana":
                           include('ranking/rankinggrana.php');
                           break;
+                        case "casasliberadas":
+                          include('casas/casasliberadas.php');
+                          break;
+                        case "casasvendidas":
+                          include('casas/casasvendidas.php');
+                          break;
+                        case "minhaconta":
+                          include('contas/minhaconta.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;
@@ -40,52 +49,7 @@
                     } else {
                       ?>
                       <div class="card-header">
-                        <h4>Projetos</h4>
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Nome do Projeto</th>
-                              <th>Quantidade de Funcionarios</th>
-                              <th>Horas Trabalhadas</th>
-                            </tr>
-                          </thead>
-                          <?php
-                            $host = "localhost";
-                            $user = "root";
-                            $pass = "root";
-                            $db = "dbempresa";
-                            $connect = new mysqli($host, $user, $pass, $db);
-                            $sql = "SELECT 
-                                        p.Nome AS NomeProjeto,
-                                        COUNT(te.fkCpf) AS QuantidadeFuncionarios,
-                                        SUM(te.Horas) AS TotalHoras
-                                    FROM 
-                                        dbempresa.trabalha_em te
-                                    JOIN 
-                                        dbempresa.projeto p ON te.fkIdProjeto = p.idProjeto
-                                    GROUP BY 
-                                        p.Nome
-                                    ORDER BY 
-                                        TotalHoras DESC
-                                    LIMIT 7;
-                                    ";
-                            $res = $connect->query($sql);
-                            $qtd = $res->num_rows;
-                            if($qtd > 0) {
-                              while($row = $res->fetch_object()) {
-                          ?>
-                            <tr>
-                              <td><?=$row->NomeProjeto?></td>
-                              <td><?=$row->QuantidadeFuncionarios?></td>
-                              <td><?=$row->TotalHoras?></td>
-                            </tr>
-                          <?php
-                              }
-                            } else {
-                              echo "<tr><td colspan='4'>Nenhum registro encontrado.</td></tr>";
-                            }
-                          ?>
-                        </table>
+                        <h4>Bem vindo ao HeadShot Server</h4>
                       </div>
                       <?php
                     }

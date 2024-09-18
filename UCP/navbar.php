@@ -12,26 +12,17 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="home.php">Inicio</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="return false;">
-                        Ranking
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="?page=rankinglevel">Ranking Level</a></li>
-                        <li><a class="dropdown-item" href="?page=rankinggrana">Ranking Grana</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="?page=rankinglevel">Top Level</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?page=funcionario-listar">Funcionários</a>
+                    <a class="nav-link active" aria-current="page" href="?page=rankinggrana">Top Grana</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?page=departamento-listartodos">Departamentos</a>
+                    <a class="nav-link active" aria-current="page" href="?page=casasliberadas">Casas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?page=local_departamentos_listar">Local Departamentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?page=trabalhaem-listartodos">Trabalha Em</a>
+                    <a class="nav-link active" aria-current="page" href="?page=minhaconta">Minha Conta</a>
                 </li>
                 <li class="nav-item">
                     <b><a class="nav-link active" aria-current="page" href="logout.php" style="color: red;">Sair</a></b>
