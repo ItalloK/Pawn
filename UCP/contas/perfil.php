@@ -367,7 +367,7 @@
       $result = strrev($result);
   
       return "$ ".$result;
-  }
+    }
 
   function VerificaEstiloDeLuta($valor){
     if($valor == 1) return "Luta com as Mãos";
