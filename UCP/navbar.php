@@ -29,6 +29,9 @@
                         <li>
                             <a class="dropdown-item" href="?page=rankingmatoumorreu">Top K/D</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=rankingtempovip">Top VIPs</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

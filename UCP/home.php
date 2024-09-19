@@ -39,6 +39,9 @@
                         case "rankingmatoumorreu":
                           include('ranking/rankingmatoumorreu.php');
                           break;
+                        case "rankingtempovip":
+                          include('ranking/rankingtempovip.php');
+                          break;
                         case "casasliberadas":
                           include('casas/casasliberadas.php');
                           break;

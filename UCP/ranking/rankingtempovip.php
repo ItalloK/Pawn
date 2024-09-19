@@ -1,15 +1,16 @@
 <?php 
     require ('conexao.php');
-    $sql = "SELECT ID, Nick, Level, TempoVip, Profissao, Skin, TemVip, TempoVip FROM jogadores ORDER BY Level DESC LIMIT 10";
+    $sql = "SELECT ID, Nick, Level, TempoVip, Profissao, Skin, TemVip, TempoVip FROM jogadores WHERE TemVip = 1 ORDER BY TempoVip DESC LIMIT 10";
     $result = $conn->query($sql);
 ?>
 
 <table class="table align-middle mb-0 bg-white">
-    <h4>Ranking jogadores com mais Level</h4>
+    <h4>Ranking jogadores com mais tempo de VIP</h4>
   <thead class="bg-light">
     <tr>
       <th>Jogador</th>
-      <th>Level</th>
+      <th>Profissao</th>
+      <th>Tempo de VIP</th>
       <th>Status VIP</th>
     </tr>
   </thead>
@@ -27,14 +28,15 @@
             />
           <div class="ms-3">
             <p class="fw-bold mb-1"><?php echo $row['Nick']; ?></p>
-            <p class="text-muted mb-0"><?php echo VerificarProfissao($row['Profissao']); ?></p>
+            <p class="text-muted mb-0"><?php echo "Level: ".$row['Level']; ?></p>
           </div>
         </div>
       </td>
       <td>
-        <p class="fw-normal mb-1"><?php echo $row['Level']; ?></p>
+        <p class="fw-normal mb-1"><?php echo VerificarProfissao($row['Profissao']); ?></p>
         <p class="text-muted mb-0"></p>
       </td>
+      <td><?php echo ConvertDias($row['TempoVip']); ?></td>
       <td>
         <?php if ($row['TemVip'] == '1'): ?>
             <span class="badge bg-warning rounded-pill d-inline">VIP</span>
