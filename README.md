@@ -1,1 +1,1 @@
-<h3>Alguns FS em Pawn para Server SAMP</h3>
+<h3>Alguns FS em Pawn e outras funcionalidades para Server SAMP</h3>
