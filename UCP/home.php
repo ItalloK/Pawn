@@ -33,6 +33,12 @@
                         case "rankinggrana":
                           include('ranking/rankinggrana.php');
                           break;
+                        case "rankingcoins":
+                          include('ranking/rankingcoins.php');
+                          break;
+                        case "rankingmatoumorreu":
+                          include('ranking/rankingmatoumorreu.php');
+                          break;
                         case "casasliberadas":
                           include('casas/casasliberadas.php');
                           break;

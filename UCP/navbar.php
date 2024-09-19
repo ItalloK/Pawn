@@ -23,6 +23,12 @@
                         <li>
                             <a class="dropdown-item" href="?page=rankinggrana">Top Grana</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=rankingcoins">Top Coins</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=rankingmatoumorreu">Top K/D</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
