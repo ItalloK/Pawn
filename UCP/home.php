@@ -51,6 +51,9 @@
                         case "minhaconta":
                           include('contas/perfil.php');
                           break;
+                        case "conta":
+                          include('contas/conta.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;

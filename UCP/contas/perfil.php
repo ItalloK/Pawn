@@ -2,7 +2,7 @@
     include('conexao.php');
     $sql = "SELECT Nick, Level, Skin, Profissao, Vida, Colete, Fome, Sede, Sono, UltimoLogin, Sexo,
               Procurado, Dinheiro, SaldoBanco, Coins, Matou, Morreu, Luta, PlanoDeSaude, Vacinas, KitsMedico, Aposentado,
-              MultaCar, MultaMot, MultaCam, MultaHeli, MultaAvi, MultaOni
+              MultaCar, MultaMot, MultaCam, MultaHeli, MultaAvi, MultaOni, Logado
             FROM jogadores WHERE id =".$_SESSION['ID']; // Adjust 'jogadores' and 'id' if needed
     $result = $conn->query($sql);
 
@@ -15,6 +15,7 @@
         $nick = $row['Nick'];
         $profissao = $row['Profissao'];
         $level = $row['Level'];
+        $logado = $row['Logado'];
         $statusVida = $row['Vida'];
         $statusColete = $row['Colete'];
         $statusFome = $row['Fome'];
@@ -57,6 +58,7 @@
             <h5 class="my-3"><?php echo $nick; ?></h5>
             <p class="text-muted mb-1">Profissão: <?php echo VerificarProfissao($profissao);?></p>
             <p class="text-muted mb-4">Level: <?php echo $level;?></p>
+            <p class="text-muted mb-1">Status: <?php echo VerificarLogin($logado);?></p>
           </div>
         </div>
         <div class="card mb-4 mb-lg-0">
@@ -386,5 +388,13 @@
   function VerificaAposentadoria($valor){
     if($valor == 0) return "Não";
     if($valor == 1) return "Sim";
+  }
+
+  function VerificarLogin($status) {
+    if ($status == "Online") {
+        return '<span style="color: green;"><strong>Online</strong></span>';
+    } else if ($status == "Offline") {
+        return '<span style="color: red;"><strong>Offline</strong></span>';
+    }
   }
 ?>

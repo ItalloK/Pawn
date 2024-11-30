@@ -34,8 +34,18 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?page=casasliberadas">Casas</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Casas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="?page=casasliberadas">Casas Liberadas</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=casasvendidas">Casas Vendidas</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="?page=minhaconta">Minha Conta</a>
