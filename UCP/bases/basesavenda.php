@@ -20,7 +20,7 @@
       <td>
         <div class="d-flex align-items-center">
             <img
-                src="img/bases/<?php echo $row['ID']; ?>.png"
+                src="img/bases/<?php echo "min".$row['ID']; ?>.png"
                 alt="Imagem do jogador"
                 style="max-width: 45px; max-height: 45px; width: auto; height: auto;"
                 class="rounded-circle"
