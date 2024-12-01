@@ -67,7 +67,10 @@
                     } else {
                       ?>
                       <div class="card-header">
-                        <h4>Bem vindo ao HeadShot Server</h4>
+                        <h4>Bem-vindo ao HeadShot Server</h4>
+                      </div>
+                      <div class="card-body">
+                        <h1>Aqui aparece apenas na home.php</h1>
                       </div>
                       <?php
                     }
