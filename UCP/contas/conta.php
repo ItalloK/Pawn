@@ -6,9 +6,8 @@
         echo "<script>alert('Nick não informado!'); window.location.href='home.php?page=casasvendidas';</script>";
     }
 
-    $sql = "SELECT Nick, Level, Skin, Profissao, Vida, Colete, Fome, Sede, Sono, UltimoLogin, Sexo,
-              Procurado, Dinheiro, SaldoBanco, Coins, Matou, Morreu, Luta, PlanoDeSaude, Vacinas, KitsMedico, Aposentado,
-              MultaCar, MultaMot, MultaCam, MultaHeli, MultaAvi, MultaOni, Logado
+    $sql = "SELECT Nick, Level, Skin, Profissao, Sexo, Procurado, Coins, Matou, Morreu, Luta, 
+            PlanoDeSaude, Vacinas, KitsMedico, Aposentado, Logado
             FROM jogadores WHERE Nick = '".$conn->real_escape_string($nick)."'";
     $result = $conn->query($sql);
 
@@ -22,16 +21,8 @@
         $profissao = $row['Profissao'];
         $level = $row['Level'];
         $logado = $row['Logado'];
-        $statusVida = $row['Vida'];
-        $statusColete = $row['Colete'];
-        $statusFome = $row['Fome'];
-        $statusSede = $row['Sede'];
-        $statusSono = $row['Sono'];
-        $ultimoLogin = $row['UltimoLogin'];
         $sexo = $row['Sexo'];
         $procurado = $row['Procurado'];
-        $dinheiro = $row['Dinheiro'];
-        $saldoBancario = $row['SaldoBanco'];
         $coins = $row['Coins'];
         $matou = $row['Matou'];
         $morreu = $row['Morreu'];
@@ -40,12 +31,6 @@
         $vacinas = $row['Vacinas'];
         $kitsMedico = $row['KitsMedico'];
         $aposentado = $row['Aposentado'];
-        $multaCar = $row['MultaCar'];
-        $multaMot = $row['MultaMot'];
-        $multaCam = $row['MultaCam'];
-        $multaHeli = $row['MultaHeli'];
-        $multaAvi = $row['MultaAvi'];
-        $multaOni = $row['MultaOni'];
 
         $imagePath = "img/skins/" . $skinID . ".png";
         if (!file_exists($imagePath)) {
@@ -55,8 +40,7 @@
         echo "<script>alert('Nick não encontrado!'); window.location.href='home.php?page=casasvendidas';</script>";
         exit;
     }
-
-    $conn->close();
+    
 ?>
 
 
@@ -77,27 +61,15 @@
           <ul class="list-group list-group-flush rounded-3">
             <li class="list-group-item d-flex align-items-center p-3">
               <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Carro: <?php echo $multaCar;?></p>
+              <p class="mb-0">Casa: <?php echo VerificarCasa($conn, $nick);?></p>
             </li>
             <li class="list-group-item d-flex align-items-center p-3">
               <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Moto: <?php echo $multaMot;?></p>
+              <p class="mb-0">Empresa: <?php echo VerificarEmpresa($conn, $nick);?></p>
             </li>
             <li class="list-group-item d-flex align-items-center p-3">
               <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Caminhão: <?php echo $multaCam;?></p>
-            </li>
-            <li class="list-group-item d-flex align-items-center p-3">
-              <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Onibus: <?php echo $multaOni;?></p>
-            </li>
-            <li class="list-group-item d-flex align-items-center p-3">
-              <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Helicoptero: <?php echo $multaHeli;?></p>
-            </li>
-            <li class="list-group-item d-flex align-items-center p-3">
-              <i class="fas fa-globe fa-lg text-warning"></i>
-              <p class="mb-0">Multas Avião: <?php echo $multaAvi;?></p>
+              <p class="mb-0">Base: <?php echo VerificarBase($conn, $nick);?></p>
             </li>
           </ul>
         </div>
@@ -107,16 +79,8 @@
     <div class="col-lg-8">
       <div class="card mb-4">
         <div class="card-body">
-          <!-- Information Rows -->
           <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Ultimo Login:</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0"><?php echo $ultimoLogin;?></p>
-            </div>
           </div>
-          <hr>
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Sexo:</p>
@@ -132,24 +96,6 @@
             </div>
             <div class="col-sm-9">
               <p class="text-muted mb-0"><?php echo formatMoney($coins);?></p>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Dinheiro:</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0"><?php echo formatMoney($dinheiro);?></p>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Saldo Bancário:</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0"><?php echo formatMoney($saldoBancario);?></p>
             </div>
           </div>
           <hr>
@@ -315,4 +261,34 @@
         return '<span style="color: red;"><strong>Offline</strong></span>';
     }
   }
+
+    function VerificarCasa($conn, $nick) {
+      $sql = "SELECT * FROM Houses WHERE HouseOwner = '".$conn->real_escape_string($nick)."'";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $casa = $row['ID'];
+        return $casa;
+      } else {
+        return "Não tem casa";
+      }
+    }
+
+    function VerificarBase($conn, $nick){
+      $sql = "SELECT clans.* FROM membros INNER JOIN clans ON membros.ClanID = clans.ID WHERE membros.Nick = '".$conn->real_escape_string($nick)."'";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $ClanID = $row['ID'];
+        $NomeClan = $row['ClanNome'];
+        return $ClanID." - ".$NomeClan;
+      } else {
+        return "Não tem Clan";
+      }
+    }
+
+    function VerificarEmpresa($conn, $nick){
+      return "Não tem Empresa";
+    }
+    $conn->close();
 ?>

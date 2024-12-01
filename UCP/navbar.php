@@ -40,10 +40,23 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="?page=casasliberadas">Casas Liberadas</a>
+                            <a class="dropdown-item" href="?page=casasliberadas">Casas a Venda</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="?page=casasvendidas">Casas Vendidas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Bases
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="?page=basesavenda">Bases a Venda</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=basesvendidas">Bases Vendidas</a>
                         </li>
                     </ul>
                 </li>

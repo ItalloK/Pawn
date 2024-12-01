@@ -54,6 +54,12 @@
                         case "conta":
                           include('contas/conta.php');
                           break;
+                        case "basesavenda":
+                          include('bases/basesavenda.php');
+                          break;
+                        case "basesvendidas":
+                          include('bases/basesvendidas.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;
