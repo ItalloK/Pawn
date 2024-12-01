@@ -1,5 +1,7 @@
 <?php 
     include('conexao.php');
+    require 'funcoes.php';
+
     $sql = "SELECT Nick, Level, Skin, Profissao, Vida, Colete, Fome, Sede, Sono, UltimoLogin, Sexo,
               Procurado, Dinheiro, SaldoBanco, Coins, Matou, Morreu, Luta, PlanoDeSaude, Vacinas, KitsMedico, Aposentado,
               MultaCar, MultaMot, MultaCam, MultaHeli, MultaAvi, MultaOni, Logado
@@ -47,7 +49,6 @@
             $imagePath = $defaultImagePath;
         }
     }
-    $conn->close();
 ?>
 <section style="background-color: #eee;">
 <div class="row">
@@ -64,6 +65,18 @@
         <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
             <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">Casa: <?php echo VerificarCasa($conn, $nick);?></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">Empresa: <?php echo VerificarEmpresa($conn, $nick);?></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">Base: <?php echo VerificarBase($conn, $nick);?></p>
+              </li>
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
                 <p class="mb-0">Multas Carro: <?php echo $multaCar;?></p>
@@ -90,28 +103,16 @@
               </li>
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">dsfsdfsd:</p>
+                <p class="mb-0">Espaço Livre: </p>
               </li>
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro:</p>
+                <p class="mb-0">Espaço Livre:</p>
               </li>
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro:</p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro:</p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro:</p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro:</p>
-              </li>
+                <p class="mb-0">Espaço Livre:</p>
+              </li>              
             </ul>
           </div>
         </div>
@@ -302,99 +303,6 @@
   </div>
 </section>
 
-
-
 <?php 
-    function VerificarProfissao($idprofissao){
-        if ($idprofissao == 0) return "Desempregado";
-        if ($idprofissao == 1) return "Entregador de Jornal";
-        if ($idprofissao == 2) return "Gari";
-        if ($idprofissao == 3) return "Pizzaboy";
-        if ($idprofissao == 4) return "Vendedor de Roupas";
-        if ($idprofissao == 5) return "Vendedor de Comida";
-        if ($idprofissao == 6) return "Minerador";
-        if ($idprofissao == 7) return "Paramédico";
-        if ($idprofissao == 8) return "Advogado";
-        if ($idprofissao == 11) return "Transportador de Concreto";
-        if ($idprofissao == 12) return "Motorista de Onibus";
-        if ($idprofissao == 13) return "Entregador de Mercadorias";
-        if ($idprofissao == 14) return "Taxista";
-        if ($idprofissao == 15) return "Maquinista";
-        if ($idprofissao == 16) return "Motorista de Carro Forte";
-        if ($idprofissao == 17) return "Piloto";
-        if ($idprofissao == 21) return "Bombeiro";
-        if ($idprofissao == 22) return "Marinha";
-        if ($idprofissao == 23) return "Exército";
-        if ($idprofissao == 24) return "Aeronáutica";
-        if ($idprofissao == 25) return "Corregedoria";
-        if ($idprofissao == 31) return "Segurança de Carro Forte";
-        if ($idprofissao == 32) return "Policial Civil";
-        if ($idprofissao == 33) return "Polícia Militar";
-        if ($idprofissao == 34) return "Delegado";
-        if ($idprofissao == 35) return "Polícia Rodoviária Federal";
-        if ($idprofissao == 36) return "Polícia Federal";
-        if ($idprofissao == 41) return "Caçador";
-        if ($idprofissao == 42) return "Pescador";
-        if ($idprofissao == 43) return "Mecânico";
-        if ($idprofissao == 50) return "Vendedor de Drogas";
-        if ($idprofissao == 51) return "Vendedor de Armas";
-        if ($idprofissao == 52) return "Sequestrador";
-        if ($idprofissao == 53) return "Produtor de Drogas";
-        if ($idprofissao == 54) return "Contrabandista Aéreo";
-        if ($idprofissao == 55) return "Assaltante";
-        if ($idprofissao == 56) return "Assassino";
-        if ($idprofissao == 57) return "Terrorista";
-        if ($idprofissao == 58) return "Chefe do Crime";
-    }
-
-    function VerificaSexo($sexo){
-        if($sexo == 1) return "Masculino";
-        if($sexo == 2) return "Feminino";
-    }
-
-    function formatMoney($valor) {
-      $formatted = strval($valor);
-      
-      $result = '';
-      $len = strlen($formatted);
-      $j = 0;
-  
-      for ($i = $len - 1; $i >= 0; $i--) {
-          $result .= $formatted[$i];
-          if (($len - $i) % 3 == 0 && $i != 0) {
-              $result .= '.'; 
-          }
-      }
-  
-      $result = strrev($result);
-  
-      return "$ ".$result;
-    }
-
-  function VerificaEstiloDeLuta($valor){
-    if($valor == 1) return "Luta com as Mãos";
-    if($valor == 2) return "Boxing";
-    if($valor == 3) return "Agarrar e chutar";
-    if($valor == 4) return "Briga de rua";
-    if($valor == 5) return "Kung-Fu";
-    if($valor == 6) return "Normal";
-  }
-
-  function VerificaPlanoDeSaude($valor){
-    if($valor == 0) return "Não Possui";
-    if($valor == 1) return "Possui";
-  }
-
-  function VerificaAposentadoria($valor){
-    if($valor == 0) return "Não";
-    if($valor == 1) return "Sim";
-  }
-
-  function VerificarLogin($status) {
-    if ($status == "Online") {
-        return '<span style="color: green;"><strong>Online</strong></span>';
-    } else if ($status == "Offline") {
-        return '<span style="color: red;"><strong>Offline</strong></span>';
-    }
-  }
+  $conn->close();
 ?>
