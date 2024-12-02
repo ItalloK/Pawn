@@ -64,12 +64,17 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-        <img src="<?php echo $imagePath; ?>" alt="avatar" class="img-fluid" style="width: 400px; border-radius: 10px;">
+          <img src="<?php echo $imagePath; ?>" alt="avatar" class="img-fluid" style="width: 400px; border-radius: 10px;">
           <h5 class="my-3"><?php echo $clanNome; ?></h5>
           <p class="text-muted mb-1">TAG: <?php echo $clanTag;?></p>
-          <span>Líder: </span><a href="?page=conta&nick=<?php echo urlencode($row['Dono']); ?>" class="text-decoration-none">
+          <span>Líder: </span>
+          <?php if ($row['Dono'] !== '-') { ?>
+              <a href="?page=conta&nick=<?php echo urlencode($row['Dono']); ?>" class="text-decoration-none">
+                  <?php echo htmlspecialchars($row['Dono']); ?>
+              </a>
+          <?php } else { ?>
               <?php echo htmlspecialchars($row['Dono']); ?>
-          </a>
+          <?php } ?>
         </div>
       </div>
       <div class="card mb-4 mb-lg-0">
