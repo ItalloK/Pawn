@@ -76,43 +76,7 @@
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
                 <p class="mb-0">Base: <?php echo VerificarBase($conn, $nick);?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Carro: <?php echo $multaCar;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Moto: <?php echo $multaMot;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Caminhão: <?php echo $multaCam;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Onibus: <?php echo $multaOni;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Helicoptero: <?php echo $multaHeli;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Multas Avião: <?php echo $multaAvi;?></p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Espaço Livre: </p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Espaço Livre:</p>
-              </li>
-              <li class="list-group-item d-flex align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">Espaço Livre:</p>
-              </li>              
+              </li>      
             </ul>
           </div>
         </div>
@@ -265,34 +229,62 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
+            <div class="card mb-4 mb-md-0" style="height: 300px;">
               <div class="card-body">
-                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                </p>
-                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <p class="mb-3"><span class="text-primary font-italic me-1"></span> Multas</p>
+                <p class="mb-1" style="font-size: .7rem;">Carro: <?php echo $multaCar . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaCar; ?> / <?php echo 21; ?> * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaCar; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="<?php echo 21; ?>">
+                  </div>
+                </div>    
+                <p class="mt-3 mb-1" style="font-size: .7rem;">Moto: <?php echo $multaMot . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaMot; ?> / 21 * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaMot; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="21">
+                  </div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <p class="mt-3 mb-1" style="font-size: .7rem;">Caminhão: <?php echo $multaCam . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaCam; ?> / 21 * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaCam; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="21">
+                  </div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <p class="mt-3 mb-1" style="font-size: .7rem;">Ônibus: <?php echo $multaOni . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaOni; ?> / 21 * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaOni; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="21">
+                  </div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <p class="mt-3 mb-1" style="font-size: .7rem;">Helicóptero: <?php echo $multaHeli . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaHeli; ?> / 21 * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaHeli; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="21">
+                  </div>
                 </div>
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                <div class="progress rounded mb-2" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <p class="mt-3 mb-1" style="font-size: .7rem;">Avião: <?php echo $multaAvi . " / " . 21; ?></p>
+                <div class="progress rounded" style="height: 4px;">
+                  <div class="progress-bar" role="progressbar" 
+                      style="width: calc(<?php echo $multaAvi; ?> / 21 * 100%); background-color: #247798;" 
+                      aria-valuenow="<?php echo $multaAvi; ?>" 
+                      aria-valuemin="0" 
+                      aria-valuemax="21">
+                  </div>
                 </div>
               </div>
             </div>
