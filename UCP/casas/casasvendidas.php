@@ -24,7 +24,7 @@
             <td><?php echo htmlspecialchars($row['HouseInterior'])." / ".htmlspecialchars($row['HouseUpgrade']); ?></td>
             <td><?php echo formatMoney($row['HousePrice']); ?></td>
             <td>
-                <a href="?page=conta&nick=<?php echo urlencode($row['HouseOwner']); ?>" class="text-decoration-none">
+                <a href="?page=conta&nick=<?php echo urlencode($row['HouseOwner']); ?>" class="text-decoration-none" style="color: black; font-weight: bold;">
                     <?php echo htmlspecialchars($row['HouseOwner']); ?>
                 </a>
             </td>

@@ -1,4 +1,9 @@
 <?php 
+    function ConvertDias($segundos) {
+        $dias = floor($segundos / (60 * 60 * 24));
+        $horas = floor(($segundos % (60 * 60 * 24)) / (60 * 60));
+        return number_format($dias, 0, ',', '.') . " Dias e " . number_format($horas, 0, ',', '.') . " Horas";
+    }
 
     function ValorLoteria($conn) {
         $sql = "SELECT * FROM servidor";

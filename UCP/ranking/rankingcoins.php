@@ -28,7 +28,9 @@
                 onerror="this.onerror=null; this.src='img/skins/default.jpg';"
             />
           <div class="ms-3">
-            <p class="fw-bold mb-1"><?php echo $row['Nick']; ?></p>
+            <a href="?page=conta&nick=<?php echo urlencode($row['Nick']); ?>" class="text-decoration-none" style="color: black; font-weight: bold;">
+                <?php echo htmlspecialchars($row['Nick']); ?>
+            </a>
             <p class="text-muted mb-0"><?php echo VerificarProfissao($row['Profissao']); ?></p>
           </div>
         </div>
