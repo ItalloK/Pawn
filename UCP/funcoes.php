@@ -49,6 +49,33 @@
         if($valor == 1) return "Sim";
     }
     
+    function VerificarSimOuNao($status) {
+        if ($status == 1) {
+            return '<span style="color: green;">Sim</span>';
+        } else if ($status == 0) {
+            return '<span style="color: red;">Não</span>';
+        }
+    }
+
+    function VerificarTipoMembro($status) {
+        if ($status == 1) {
+            return '<span style="color: black;">Membro</span>';
+        } else if ($status == 2) {
+            return '<span style="color: red;">Sub-Líder</span>';
+        }
+        else if ($status == 3) {
+            return '<span style="color: green;">Líder</span>';
+        }
+    }
+
+    function VerificarLoginBase($status) {
+        if ($status == "Online") {
+            return '<span style="color: green;">Online</span>';
+        } else if ($status == "Offline") {
+            return '<span style="color: red;">Offline</span>';
+        }
+    }
+
     function VerificarLogin($status) {
         if ($status == "Online") {
             return '<span style="color: green;"><strong>Online</strong></span>';

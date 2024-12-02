@@ -27,7 +27,11 @@
                 onerror="this.onerror=null; this.src='img/skins/default.jpg';"
             />
           <div class="ms-3">
-            <p class="fw-bold mb-1"><?php echo $row['ClanNome']; ?></p>
+            <p class="fw-bold mb-1">
+                <a href="?page=base&id=<?php echo urlencode($row['ID']); ?>" class="text-decoration-none">
+                    <?php echo htmlspecialchars($row['ClanNome']); ?>
+                </a>
+            </p>
             <p class="text-muted mb-0"><?php echo "TAG: ".$row['ClanTag']; ?></p>
           </div>
         </div>

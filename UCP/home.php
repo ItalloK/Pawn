@@ -60,6 +60,9 @@
                         case "basesvendidas":
                           include('bases/basesvendidas.php');
                           break;
+                        case "base":
+                          include('bases/base.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;

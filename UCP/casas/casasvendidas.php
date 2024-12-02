@@ -23,7 +23,11 @@
             <td><?php echo PegarBairroCasa($row['HouseX'], $row['HouseY']); ?></td>
             <td><?php echo htmlspecialchars($row['HouseInterior'])." / ".htmlspecialchars($row['HouseUpgrade']); ?></td>
             <td><?php echo formatMoney($row['HousePrice']); ?></td>
-            <td><a href="?page=conta&nick=<?php echo urlencode($row['HouseOwner']); ?>"><?php echo $row['HouseOwner']; ?></a></td>
+            <td>
+                <a href="?page=conta&nick=<?php echo urlencode($row['HouseOwner']); ?>" class="text-decoration-none">
+                    <?php echo htmlspecialchars($row['HouseOwner']); ?>
+                </a>
+            </td>
         </tr>
         <?php endwhile; ?>
     </tbody>

@@ -5,7 +5,7 @@
     if(isset($_GET['nick'])) {
         $nick = $_GET['nick'];
     } else {
-        echo "<script>alert('Nick não informado!'); window.location.href='home.php?page=casasvendidas';</script>";
+        echo "<script>alert('Nick não informado!'); window.location.href='home.php';</script>";
     }
 
     $sql = "SELECT Nick, Level, Skin, Profissao, Sexo, Procurado, Coins, Matou, Morreu, Luta, 
@@ -39,7 +39,7 @@
             $imagePath = $defaultImagePath;
         }
     } else {
-        echo "<script>alert('Nick não encontrado!'); window.location.href='home.php?page=casasvendidas';</script>";
+        echo "<script>alert('Nick não encontrado!'); window.location.href='home.php';</script>";
         exit;
     }
 ?>
