@@ -70,11 +70,32 @@
                     } else {
                       ?>
                       <div class="card-header">
-                        <h4>Bem-vindo ao HeadShot Server</h4>
+                      <h4>Bem-vindo ao HeadShot Server</h4>
+                      <link rel="stylesheet" href="css/loteria.css">
+                        </div>
+                        <div class="card-body">
+                          <div class="caixa-loteria">
+                              <img src="img/loteria.png" alt="Logo Dinheiro">
+                              <div class="titulo-loteria">Loteria</div>
+                              <div class="valor-acumulado" id="valor-acumulado"></div>
+                          </div>
+                          <div class="caixa-loteria">
+                              <img src="img/imposto.png" alt="Logo Dinheiro">
+                              <div class="titulo-loteria">Impostometro</div>
+                              <div class="valor-acumulado" id="valor-acumulado-2"></div>
+                          </div>
                       </div>
-                      <div class="card-body">
-                        <h1>Aqui aparece apenas na home.php</h1>
-                      </div>
+                      <?php
+                        require_once 'conexao.php';
+                        require_once 'funcoes.php';
+                        $valorLoteria = formatMoney(ValorLoteria($conn));
+                        $valorImpostometro = formatMoney(ValorImpostometro($conn));
+                      ?>
+                      <script>
+                          document.getElementById('valor-acumulado').textContent = "<?php echo $valorLoteria; ?>";
+                          document.getElementById('valor-acumulado-2').textContent = "<?php echo $valorImpostometro; ?>";
+                      </script>
+
                       <?php
                     }
                   ?>

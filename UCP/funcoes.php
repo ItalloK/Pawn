@@ -1,4 +1,29 @@
 <?php 
+
+    function ValorLoteria($conn) {
+        $sql = "SELECT * FROM servidor";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $loteria = $row['ValorLoteria'];
+            return $loteria;
+        } else {
+            return "Valor não encontrado";
+        }
+    }
+    function ValorImpostometro($conn) {
+        $sql = "SELECT * FROM servidor";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $loteria = $row['Impostometro'];
+            return $loteria;
+        } else {
+            return "Valor não encontrado";
+        }
+    }
+
+
     function VerificarCasa($conn, $nick) {
         $sql = "SELECT * FROM Houses WHERE HouseOwner = '".$conn->real_escape_string($nick)."'";
         $result = $conn->query($sql);
