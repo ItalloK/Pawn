@@ -72,6 +72,9 @@
                         case "postosvendidos":
                           include('postos/postosvendidos.php');
                           break;
+                        case "valorescombustivel":
+                          include('postos/valorescombustivel.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;

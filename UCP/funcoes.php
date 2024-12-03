@@ -1,4 +1,17 @@
 <?php 
+    function VerificarPosto($conn, $nick){
+        $sql = "SELECT ID, Dono, Local FROM postos WHERE Dono = '".$conn->real_escape_string($nick)."'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          $ClanID = $row['ID'];
+          $NomeClan = $row['Local'];
+          return $ClanID." - ".$NomeClan;
+        } else {
+          return "Não tem Posto";
+        }
+    }
+
     function ConvertDias($segundos) {
         $dias = floor($segundos / (60 * 60 * 24));
         $horas = floor(($segundos % (60 * 60 * 24)) / (60 * 60));

@@ -75,6 +75,10 @@
               </li>
               <li class="list-group-item d-flex align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">Posto: <?php echo VerificarPosto($conn, $nick);?></p>
+              </li> 
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
                 <p class="mb-0">Base: <?php echo VerificarBase($conn, $nick);?></p>
               </li>      
             </ul>

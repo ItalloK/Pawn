@@ -67,6 +67,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
+                            <a class="dropdown-item" href="?page=valorescombustivel">Valores Combustivel</a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="?page=postosavenda">Postos a Venda</a>
                         </li>
                         <li>
