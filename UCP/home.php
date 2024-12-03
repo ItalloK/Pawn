@@ -63,6 +63,15 @@
                         case "base":
                           include('bases/base.php');
                           break;
+                        case "posto":
+                          include('postos/posto.php');
+                          break;
+                        case "postosavenda":
+                          include('postos/postosavenda.php');
+                          break;
+                        case "postosvendidos":
+                          include('postos/postosvendidos.php');
+                          break;
                         case "index":
                           include("index.php");
                           break;

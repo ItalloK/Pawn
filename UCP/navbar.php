@@ -60,6 +60,20 @@
                         </li>
                     </ul>
                 </li>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Postos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="?page=postosavenda">Postos a Venda</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="?page=postosvendidos">Postos Vendidos</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="?page=minhaconta">Minha Conta</a>
                 </li>
