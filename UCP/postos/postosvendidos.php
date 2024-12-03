@@ -1,7 +1,7 @@
 <?php 
     require ('conexao.php');
     require ('funcoes.php');
-    $sql = "SELECT * FROM clans WHERE Dono != '-'";
+    $sql = "SELECT * FROM postos WHERE Dono != 'Ninguem'";
     $res = $conn->query($sql);
     $qtd = $res->num_rows;
 ?>
@@ -9,9 +9,9 @@
     <h4>Postos Vendidos</h4>
   <thead class="bg-light">
     <tr>
-      <th>Base</th>
-      <th>Líder</th>
-      <th>Membros</th>
+      <th>Posto</th>
+      <th>Dono</th>
+      <th>Local</th>
     </tr>
   </thead>
   <tbody>
@@ -28,11 +28,11 @@
             />
           <div class="ms-3">
             <p class="fw-bold mb-1">
-              <a href="?page=base&id=<?php echo urlencode($row['ID']); ?>" class="text-decoration-none" style="color: black;">
-                  <?php echo htmlspecialchars($row['ClanNome']); ?>
+              <a href="?page=posto&id=<?php echo urlencode($row['ID']); ?>" class="text-decoration-none" style="color: black;">
+                  <?php echo "Posto de ".htmlspecialchars($row['Local']); ?>
               </a>
             </p>
-            <p class="text-muted mb-0"><?php echo "TAG: ".$row['ClanTag']; ?></p>
+            <p class="text-muted mb-0"><?php echo "Producao: ".$row['Producao']; ?></p>
           </div>
         </div>
       </td>
@@ -43,7 +43,7 @@
         <p class="text-muted mb-0"></p>
       </td>
       <td>
-        <p class="fw-normal mb-1"><?php echo ($row['Membros']); ?></p>
+        <p class="fw-normal mb-1"><?php echo ($row['Local']); ?></p>
         <p class="text-muted mb-0"></p>
       </td>
     </tr>
